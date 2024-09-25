@@ -88,20 +88,23 @@ void MLCMatrix::insertRowEmptyRow()
 
 bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
 {
+
 	std::ifstream file(filename);
 
 	if (!file.is_open()) {
 
 		return 0;
 	}
-
+	matrix.setColumns(0);
+	matrix.setRows(0);
 	std::string line;
 	while (std::getline(file, line)) {
 		std::stringstream ss(line);
 		std::string cell;
 		VectorDouble row;
+		
+		while (std::getline(ss, cell, ';')) {
 
-		while (std::getline(ss, cell, ',')) {
 			try {
 				row.push_back(std::stod(cell));  // Конвертируем строку в число
 			}
@@ -116,14 +119,34 @@ bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
 		if (matrix.columns == 0) {
 			matrix.columns = (int)(row.size());
 		}
-		else if (row.size() != matrix.columns) {
-			return  0;
-		}
-
+		matrix.setColumns((int)row.size());
 		matrix.data.push_back(row);
 		matrix.rows++;
 	}
 
 	file.close();
 	return 1;
+}
+
+void MLCMatrix::setRows(int newRows)
+{
+	if (newRows < rows) {
+		data.resize(newRows);
+	}
+	else if (newRows > rows) {
+		
+		for (int i = rows; i < newRows; ++i) {
+			data.push_back(VectorDouble(columns, 0.0));  
+		}
+	}
+	rows = newRows;  
+}
+
+void MLCMatrix::setColumns(int newCols)
+{
+	
+	for (VectorDouble& row : data) {
+		row.resize(newCols, 0.0);  
+	}
+	columns = newCols;  
 }

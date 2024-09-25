@@ -34,4 +34,8 @@ public:
 	void insertRowEmptyRow();
 
 	static bool fromCSV(const std::string& filename, MLCMatrix& matrix);
+
+	void setRows(int newRows);
+
+	void setColumns(int newCols);
 };
