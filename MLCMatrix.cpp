@@ -50,6 +50,7 @@ bool MLCMatrix::insertRow(int position, const VectorDouble& newRow)
 
 	data.insert(data.begin() + position, newRow);
 	rows++;
+	return 1;
 }
 
 bool MLCMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
@@ -66,7 +67,7 @@ bool MLCMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
 		newRow.resize(columns, 0.0);
 	}
 	else {
-		columns = newRow.size();
+		columns = (int)(newRow.size());
 		for (VectorDouble& row : data) {
 			row.resize(columns, 0.0);
 		}
@@ -74,6 +75,7 @@ bool MLCMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
 
 	data.insert(data.begin() + position, newRow);
 	rows++;
+	return 1;
 
 }
 
@@ -84,14 +86,13 @@ void MLCMatrix::insertRowEmptyRow()
 	rows++;
 }
 
-MLCMatrix* MLCMatrix::fromCSV(const std::string& filename)
+bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
 {
-	MLCMatrix matrix;
 	std::ifstream file(filename);
 
 	if (!file.is_open()) {
 
-		return &matrix;
+		return 0;
 	}
 
 	std::string line;
@@ -113,10 +114,10 @@ MLCMatrix* MLCMatrix::fromCSV(const std::string& filename)
 		}
 
 		if (matrix.columns == 0) {
-			matrix.columns = row.size();
+			matrix.columns = (int)(row.size());
 		}
 		else if (row.size() != matrix.columns) {
-			return &MLCMatrix();
+			return  0;
 		}
 
 		matrix.data.push_back(row);
@@ -124,5 +125,5 @@ MLCMatrix* MLCMatrix::fromCSV(const std::string& filename)
 	}
 
 	file.close();
-	return &matrix;
+	return 1;
 }
