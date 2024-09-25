@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <string>
 typedef std::vector<double> VectorDouble;
 
 class MLCMatrix {
@@ -85,5 +88,45 @@ public:
 		rows++;
 	}
 
+	static MLCMatrix* fromCSV(const std::string& filename) {
+		MLCMatrix matrix;
+		std::ifstream file(filename);
 
+		if (!file.is_open()) {
+			
+			return &matrix; 
+		}
+
+		std::string line;
+		while (std::getline(file, line)) {
+			std::stringstream ss(line);
+			std::string cell;
+			VectorDouble row;
+
+			while (std::getline(ss, cell, ',')) {
+				try {
+					row.push_back(std::stod(cell));  // Конвертируем строку в число
+				}
+				catch (const std::invalid_argument&) {
+					row.push_back(0.0);  // В случае ошибки записываем 0.0
+				}
+				catch (const std::out_of_range&) {
+					row.push_back(0.0); 
+				}
+			}
+
+			if (matrix.columns == 0) {
+				matrix.columns = row.size();  
+			}
+			else if (row.size() != matrix.columns) {
+				return &MLCMatrix();  
+			}
+
+			matrix.data.push_back(row);  
+			matrix.rows++;
+		}
+
+		file.close();
+		return &matrix;
+	}
 };
