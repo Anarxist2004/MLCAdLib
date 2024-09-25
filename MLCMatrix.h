@@ -79,7 +79,7 @@ public:
 
 	}
 
-	bool insertRowEmptyRow() {
+	void insertRowEmptyRow() {
 		VectorDouble emptyRow(columns, 0.0);
 		data.push_back(emptyRow);
 		rows++;
