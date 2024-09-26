@@ -7,16 +7,16 @@
 
 typedef std::vector<double> VectorDouble;
 
-class MLCMatrix {
+class MLCVecMatrix {
 private:
 	std::vector<VectorDouble> data;
 	int rows =1;
 	int columns=1;
 
 public:
-	MLCMatrix(int rows, int cols);
+	MLCVecMatrix(int rows, int cols);
 
-	MLCMatrix();
+	MLCVecMatrix();
 
 	int getRows() const;
 
@@ -33,7 +33,7 @@ public:
 
 	void insertRowEmptyRow();
 
-	static bool fromCSV(const std::string& filename, MLCMatrix& matrix);
+	static bool fromCSV(const std::string& filename, MLCVecMatrix& matrix);
 
 	void setRows(int newRows);
 

@@ -139,13 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbctractVector.h" />
+    <ClInclude Include="AbstractMatrix.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="MLCMatrix.h" />
+    <ClInclude Include="MLCDinMatrix.h" />
+    <ClInclude Include="MLCVecMatrix.h" />
+    <ClInclude Include="MLCVector.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="MLCMatrix.cpp" />
+    <ClCompile Include="MLCVector.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

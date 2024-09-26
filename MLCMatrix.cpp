@@ -1,34 +1,34 @@
 #include "pch.h"
-#include "MLCMatrix.h"
+#include "MLCVecMatrix.h"
 
-MLCMatrix::MLCMatrix(int rows, int cols)
+MLCVecMatrix::MLCVecMatrix(int rows, int cols)
 {
 	data.resize(rows, VectorDouble(cols, 0.0));
 	rows = this->rows;
 	columns = cols;
 }
 
-MLCMatrix::MLCMatrix()
+MLCVecMatrix::MLCVecMatrix()
 {
 	data.resize(1, VectorDouble(1, 0.0));
 }
 
-int MLCMatrix::getRows() const
+int MLCVecMatrix::getRows() const
 {
 	return rows;
 }
 
-int MLCMatrix::getColumns() const
+int MLCVecMatrix::getColumns() const
 {
 	return columns;
 }
 
-double& MLCMatrix::operator()(int row, int col)
+double& MLCVecMatrix::operator()(int row, int col)
 {
 	return data[row][col];
 }
 
-bool MLCMatrix::insertRow(const VectorDouble& newRow)
+bool MLCVecMatrix::insertRow(const VectorDouble& newRow)
 {
 	if (newRow.size() != columns) {
 		return 0;
@@ -38,7 +38,7 @@ bool MLCMatrix::insertRow(const VectorDouble& newRow)
 	return 1;
 }
 
-bool MLCMatrix::insertRow(int position, const VectorDouble& newRow)
+bool MLCVecMatrix::insertRow(int position, const VectorDouble& newRow)
 {
 	if (newRow.size() != columns) {
 		return 0;
@@ -53,7 +53,7 @@ bool MLCMatrix::insertRow(int position, const VectorDouble& newRow)
 	return 1;
 }
 
-bool MLCMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
+bool MLCVecMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
 {
 	if (position < 0 || position > rows) {
 		return 0;
@@ -79,14 +79,14 @@ bool MLCMatrix::insertRow(int position, VectorDouble& newRow, bool hardInsert)
 
 }
 
-void MLCMatrix::insertRowEmptyRow()
+void MLCVecMatrix::insertRowEmptyRow()
 {
 	VectorDouble emptyRow(columns, 0.0);
 	data.push_back(emptyRow);
 	rows++;
 }
 
-bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
+bool MLCVecMatrix::fromCSV(const std::string& filename, MLCVecMatrix& matrix)
 {
 
 	std::ifstream file(filename);
@@ -128,7 +128,7 @@ bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
 	return 1;
 }
 
-void MLCMatrix::setRows(int newRows)
+void MLCVecMatrix::setRows(int newRows)
 {
 	if (newRows < rows) {
 		data.resize(newRows);
@@ -142,7 +142,7 @@ void MLCMatrix::setRows(int newRows)
 	rows = newRows;  
 }
 
-void MLCMatrix::setColumns(int newCols)
+void MLCVecMatrix::setColumns(int newCols)
 {
 	
 	for (VectorDouble& row : data) {
