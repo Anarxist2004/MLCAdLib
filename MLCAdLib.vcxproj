@@ -143,6 +143,7 @@
     <ClInclude Include="AbstractMatrix.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MLCDinMatrix.h" />
+    <ClInclude Include="MLCToolsVector.h" />
     <ClInclude Include="MLCVecMatrix.h" />
     <ClInclude Include="MLCVector.h" />
     <ClInclude Include="pch.h" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="MLCMatrix.cpp" />
+    <ClCompile Include="MLCToolsVector.cpp" />
     <ClCompile Include="MLCVector.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
