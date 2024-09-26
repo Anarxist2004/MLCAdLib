@@ -103,7 +103,7 @@ bool MLCMatrix::fromCSV(const std::string& filename, MLCMatrix& matrix)
 		std::string cell;
 		VectorDouble row;
 		
-		while (std::getline(ss, cell, ';')) {
+		while (std::getline(ss, cell, ',')) {
 
 			try {
 				row.push_back(std::stod(cell));  // Конвертируем строку в число
